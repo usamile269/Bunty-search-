@@ -1,0 +1,323 @@
+html><!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bunty Search Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--t:#ecf4ff;--m:#9fb2d1;--a:#5eead4;--a2:#60a5fa;--d:#fb7185}
+body{font-family:Poppins,sans-serif;font-weight:600;color:var(--t);background:linear-gradient(180deg,#050816,#060912);min-height:100vh;padding:20px}
+.c{max-width:1100px;margin:0 auto}
+.h{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;border:1px solid #ffffff14;border-radius:999px;background:#11182b99;position:sticky;top:18px;z-index:100}
+.b{display:flex;align-items:center;gap:12px;font-weight:800}
+.l{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--a2),var(--a));display:grid;place-items:center;color:#06111f;font-weight:900;font-size:20px}
+.n a{margin-left:10px;color:var(--t);background:#ffffff0d;border:1px solid #ffffff14;padding:8px 16px;border-radius:999px;font-size:13px;cursor:pointer;text-decoration:none;display:inline-block}
+.hero{margin-top:28px;padding:32px;border:1px solid #ffffff14;border-radius:24px;background:#11182bcc}
+h1{font-size:clamp(24px,5vw,36px);font-weight:800;margin-bottom:20px}
+.g{background:linear-gradient(90deg,var(--a),var(--a2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.s{display:flex;gap:10px;margin-bottom:24px}
+.s input{flex:1;padding:14px 18px;border:1px solid #ffffff14;border-radius:14px;background:#ffffff0f;color:var(--t);font-size:15px;font-family:inherit}
+.s input:disabled{opacity:.5}
+.s button{padding:14px 28px;border:none;border-radius:14px;font-weight:800;color:#06111f;background:linear-gradient(135deg,var(--a),var(--a2));cursor:pointer;font-family:inherit}
+.s button:disabled{opacity:.4;cursor:not-allowed}
+#res{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.card{padding:18px;border-radius:16px;border:1px solid #60a5fa26;background:#11182beb;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--a),var(--a2))}
+.card strong{color:var(--a2);font-size:15px;display:block;margin-bottom:10px}
+.card small{display:block;color:var(--m);font-size:13px;padding:5px 8px;background:#ffffff08;border-radius:6px;border-left:2px solid var(--a2);margin-bottom:5px}
+.card .lbl{color:var(--a);font-weight:700;margin-right:5px}
+.act{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.btn{padding:6px 12px;border-radius:8px;background:#ffffff0d;border:1px solid #ffffff1a;color:var(--m);font-size:11px;cursor:pointer;text-decoration:none;font-family:inherit}
+.btn.wa{background:#25d3661a;color:#25d366;border-color:#25d3664d}
+.btn.map{background:#fb71851a;color:var(--d);border-color:#fb71854d}
+.btn.img{background:#5eead41a;color:var(--a);border-color:#5eead44d}
+.btn.locked{opacity:.4;cursor:not-allowed}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}
+.st{padding:14px;border-radius:12px;background:#ffffff0a;border:1px solid #60a5fa1a;text-align:center}
+.st b{display:block;font-size:20px;font-weight:800;color:var(--a2)}
+.st small{color:var(--m);font-size:11px}
+.adm{display:none;margin-top:20px;padding:20px;border:1px solid #ffffff14;border-radius:20px;background:#11182bf2}
+.adm.on{display:block}
+.adm h2{color:var(--a2);margin-bottom:14px}
+.box{padding:14px;border-radius:12px;border:1px solid #ffd7004d;background:#ffd7000d;margin-bottom:14px}
+.box h3{color:#ffd700;font-size:14px;margin-bottom:8px}
+.box input{width:100%;padding:10px;border-radius:10px;border:1px solid #ffffff14;background:#ffffff0f;color:var(--t);font-family:inherit;margin-bottom:8px}
+.box button{padding:10px 18px;border-radius:10px;border:none;background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000;font-weight:700;cursor:pointer;font-family:inherit}
+.mi{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.mi input{flex:1;padding:10px;border-radius:10px;border:1px solid #ffffff14;background:#ffffff0f;color:var(--t);font-family:inherit;min-width:180px}
+.mi button{padding:10px 16px;border-radius:10px;border:none;background:linear-gradient(135deg,var(--a),var(--a2));color:#06111f;font-weight:700;cursor:pointer;font-family:inherit}
+table{width:100%;border-collapse:collapse;font-size:12px;background:#00000033;border-radius:10px;overflow:hidden;margin-top:12px}
+th{padding:8px;text-align:left;background:#60a5fa1a;color:var(--a2)}
+td{padding:6px 8px;border-bottom:1px solid #ffffff08;color:var(--m)}
+.clr{padding:10px 18px;border-radius:10px;background:#fb718526;border:1px solid #fb71854d;color:var(--d);font-weight:700;cursor:pointer;font-family:inherit;margin-top:12px}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--a),var(--a2));color:#06111f;padding:12px 24px;border-radius:999px;font-weight:700;font-size:13px;z-index:9999}
+.mod{display:none;position:fixed;inset:0;background:#000000e6;z-index:3000;align-items:center;justify-content:center;padding:20px}
+.mod.on{display:flex}
+.modc{background:#111;border:1px solid #60a5fa4d;border-radius:16px;max-width:700px;width:100%;overflow:hidden}
+.modc iframe{width:100%;height:350px;border:none}
+.modc button{width:100%;padding:12px;background:#ffffff0d;border:none;color:var(--t);font-weight:700;cursor:pointer;font-family:inherit}
+.up{display:none;position:fixed;inset:0;background:#000000e6;z-index:4000;align-items:center;justify-content:center;padding:20px}
+.up.on{display:flex}
+.upc{background:#1a1a1a;border:1px solid #ffd700;border-radius:20px;padding:24px;max-width:400px;text-align:center;color:#fff;max-height:90vh;overflow-y:auto}
+.upc h2{color:#ffd700;margin:10px 0}
+.upc .price{font-size:30px;font-weight:800;color:#ffd700;margin:10px 0}
+.upc .f{text-align:left;font-size:12px;color:#ccc;margin:14px 0;line-height:1.9}
+.upc .f b{color:#ffd700}
+.pay-box{background:#252525;padding:12px;border-radius:12px;margin:10px 0;text-align:left}
+.pay-box h4{color:#ffd700;font-size:13px;margin-bottom:8px}
+.pay-method{display:flex;justify-content:space-between;align-items:center;padding:6px;background:#1a1a1a;border-radius:8px;margin-bottom:5px}
+.pay-method span{font-size:12px;color:#ccc}
+.pay-method b{color:#ffd700;font-size:12px}
+.copy-btn{padding:3px 8px;font-size:10px;background:#ffd70033;color:#ffd700;border:1px solid #ffd70066;border-radius:5px;cursor:pointer;font-family:inherit}
+.upc a{display:block;padding:12px;background:#25D366;color:#fff;border-radius:10px;text-decoration:none;font-weight:700;margin-top:10px;font-size:14px}
+.upc button{margin-top:8px;padding:8px 16px;background:transparent;border:1px solid #555;color:#999;border-radius:8px;cursor:pointer;font-family:inherit}
+.login-modal{display:none;position:fixed;inset:0;background:#000000e6;z-index:5000;align-items:center;justify-content:center;padding:20px}
+.login-modal.on{display:flex}
+.login-content{background:#11182b;border:1px solid #60a5fa4d;border-radius:20px;padding:28px;max-width:360px;width:100%;text-align:center}
+.login-content h2{color:var(--a2);margin-bottom:14px}
+.login-content p{color:var(--m);font-size:13px;margin-bottom:16px}
+.login-content input{width:100%;padding:14px;border-radius:12px;border:1px solid #ffffff14;background:#ffffff0f;color:var(--t);font-family:inherit;font-size:15px;margin-bottom:12px;text-align:center}
+.login-content button{width:100%;padding:14px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--a),var(--a2));color:#06111f;font-weight:800;cursor:pointer;font-family:inherit;font-size:15px}
+@media(max-width:768px){.stats{grid-template-columns:repeat(2,1fr)}#res{grid-template-columns:1fr}.s{flex-direction:column}}
+</style>
+</head><body>
+<div class="c">
+<div class="h">
+<div class="b"><div class="l">B</div><div>BUNTY SEARCH HUB</div></div>
+<div class="n">
+<a onclick="login()" id="ub">👤 Login</a>
+<a onclick="adm()">Admin</a>
+</div>
+</div>
+
+<div class="hero">
+<h1>Bunty <span class="g">Search Hub</span></h1>
+<div class="s">
+<input id="q" placeholder="Login karo pehle..." disabled>
+<button onclick="search()" id="sb" disabled>🔒 Login Required</button>
+</div>
+<div id="res"></div>
+<div class="stats">
+<div class="st"><b id="tot">0</b><small>Total</small></div>
+<div class="st"><b id="usr">0</b><small>Users</small></div>
+<div class="st"><b>99%</b><small>Uptime</small></div>
+<div class="st"><b>⚡</b><small>Fast</small></div>
+</div>
+</div>
+
+<div class="adm" id="ap">
+<h2>🔐 Admin Panel</h2>
+<div class="box">
+<h3>👑 Premium Users</h3>
+<input id="pp" placeholder="User number">
+<button onclick="addP()">➕ Add Premium</button>
+<div id="pl" style="font-size:12px;color:var(--m);margin-top:10px;max-height:150px;overflow-y:auto"></div>
+</div>
+<h3 style="font-size:14px;color:var(--a);margin-bottom:6px">🎵 Music</h3>
+<div class="mi">
+<input id="mu" placeholder="MP3 URL...">
+<button onclick="setM()">Set</button>
+<button onclick="stopM()" style="background:#fb718533;color:var(--d)">Stop</button>
+</div>
+<table><thead><tr><th>#</th><th>Query</th><th>Time</th></tr></thead><tbody id="lg"></tbody></table>
+<button class="clr" onclick="clrL()">🗑️ Clear Logs</button>
+</div>
+
+<div style="text-align:center;color:#7f93b8;font-size:12px;margin-top:20px;padding:14px">© 2026 Bunty Search Hub</div>
+</div>
+
+<audio id="ba" loop></audio>
+<div class="mod" id="mm"><div class="modc"><iframe id="mf"></iframe><button onclick="cm()">✖ Close</button></div></div>
+
+<div class="login-modal" id="lm">
+<div class="login-content">
+<div style="font-size:50px">👤</div>
+<h2>Login Required</h2>
+<p>Search karne ke liye number daalo</p>
+<input id="loginInput" placeholder="03001234567" type="tel">
+<button onclick="doLogin()">🔓 Login</button>
+</div>
+</div>
+
+<div class="up" id="um"><div class="upc">
+<div style="font-size:50px">👑</div>
+<h2>Premium Unlock</h2>
+<p style="color:#999;font-size:13px">Free limit khatam!</p>
+<div class="price">₨200<span style="font-size:13px;color:#999">/month</span></div>
+<div class="f">
+<b>✅ Free:</b> 5 search/day, Ads<br>
+<b>👑 Premium:</b> Unlimited, No Ads, Map, Image, Priority
+</div>
+<div class="pay-box">
+<h4>💰 Payment:</h4>
+<div class="pay-method">
+<span>JazzCash</span><b>0304-4975027</b>
+<button class="copy-btn" onclick="cpPay('03044975027')">📋</button>
+</div>
+</div>
+<a href="https://wa.me/923044975027?text=Premium%20₨200" target="_blank">📱 Screenshot Bhejo WhatsApp</a>
+<button onclick="cu()">❌ Close</button>
+</div></div>
+
+<script>
+const APIS=["https://wasifali.biz.id/public_apis/sim-info-api.php","https://famofc.site/api/database.php"];
+const LIM=5;
+
+function gu(){return localStorage.getItem('cu')}
+function gp(p){const l=JSON.parse(localStorage.getItem('pu')||'[]');const u=l.find(x=>x.phone===p);return u&&new Date(u.expiry)>new Date()}
+
+function login(){
+const u=gu();
+if(!u){document.getElementById('lm').classList.add('on');document.getElementById('loginInput').focus()}
+else{if(confirm(`Logged in: ${u}\nLogout?`)){localStorage.removeItem('cu');ub();lockSearch();toast('👋 Logout')}}}
+
+function doLogin(){
+const p=document.getElementById('loginInput').value.trim();
+if(!p||p.length<10){alert("Sahi number daalo");return}
+localStorage.setItem('cu',p);
+document.getElementById('lm').classList.remove('on');
+document.getElementById('loginInput').value='';
+toast('✅ Login!');
+ub();unlockSearch()}
+
+function lockSearch(){
+document.getElementById('q').disabled=true;
+document.getElementById('q').placeholder='Login karo pehle...';
+document.getElementById('sb').disabled=true;
+document.getElementById('sb').innerHTML='🔒 Login Required'}
+
+function unlockSearch(){
+document.getElementById('q').disabled=false;
+document.getElementById('q').placeholder='Enter phone or CNIC...';
+document.getElementById('sb').disabled=false;
+document.getElementById('sb').innerHTML='Search'}
+
+function ub(){
+const u=gu();const b=document.getElementById('ub');
+if(u){const p=gp(u);b.innerHTML=p?'👑 Premium':'🆓 Free';b.style.background=p?'linear-gradient(135deg,#ffd700,#ff8c00)':'#ffffff0d';b.style.color=p?'#000':'var(--t)'}
+else{b.innerHTML='👤 Login';b.style.background='#ffffff0d';b.style.color='var(--t)'}}
+
+function chk(){
+const u=gu();
+if(!u){login();return false}
+if(gp(u))return true;
+const t=new Date().toDateString();
+const s=JSON.parse(localStorage.getItem('s_'+u)||'{}');
+const c=s[t]||0;
+if(c>=LIM){document.getElementById('um').classList.add('on');return false}
+s[t]=c+1;localStorage.setItem('s_'+u,JSON.stringify(s));return true}
+
+function cu(){document.getElementById('um').classList.remove('on')}
+function cpPay(n){navigator.clipboard.writeText(n).then(()=>toast('✅ Number copied!'))}
+
+function addP(){
+const p=document.getElementById('pp').value.trim();
+if(!p){alert("Number daalo!");return}
+const l=JSON.parse(localStorage.getItem('pu')||'[]');
+const e=l.find(u=>u.phone===p);
+const exp=new Date(Date.now()+30*86400000).toISOString();
+if(e)e.expiry=exp;else l.push({phone:p,expiry:exp});
+localStorage.setItem('pu',JSON.stringify(l));
+lp();document.getElementById('pp').value='';toast('✅ Added!')}
+
+function lp(){
+const l=JSON.parse(localStorage.getItem('pu')||'[]');
+const el=document.getElementById('pl');
+if(!l.length){el.innerHTML='No premium users';return}
+el.innerHTML=l.map((u,i)=>{const d=Math.ceil((new Date(u.expiry)-new Date())/86400000);return `<div style="padding:6px;background:#ffffff08;border-radius:6px;margin-bottom:4px;display:flex;justify-content:space-between"><span><b style="color:#ffd700">${u.phone}</b> <span style="color:${d<=0?'#f44':'#4c4'}">${d<=0?'❌':'✅ '+d+'d'}</span></span><button onclick="rp(${i})" style="padding:2px 6px;font-size:10px;background:#fb718533;color:var(--d);border:none;border-radius:4px;cursor:pointer">🗑️</button></div>`}).join('')}
+
+function rp(i){if(!confirm("Remove?"))return;const l=JSON.parse(localStorage.getItem('pu')||'[]');l.splice(i,1);localStorage.setItem('pu',JSON.stringify(l));lp()}
+
+const ba=document.getElementById('ba');
+function setM(){const u=document.getElementById('mu').value.trim();if(!u){alert("URL daalo");return}localStorage.setItem('mu',u);ba.src=u;ba.volume=.3;ba.play().catch(()=>alert("⚠️ Click karo"));toast('✅ Music set!')}
+function stopM(){ba.pause();ba.src='';localStorage.removeItem('mu');toast('⏹️ Stopped')}
+
+let unl=false;
+function adm(){
+if(!unl){const p=prompt("Admin Password:");if(p==="AHMAD123"){unl=true;document.getElementById('ap').classList.add('on');la()}else alert("❌ Wrong!")}
+else{document.getElementById('ap').classList.toggle('on');if(document.getElementById('ap').classList.contains('on'))la()}}
+
+function sl(q){
+const l=JSON.parse(localStorage.getItem('logs')||'[]');
+l.push({q,t:new Date().toLocaleString()});
+if(l.length>500)l.shift();
+localStorage.setItem('logs',JSON.stringify(l));
+let t=parseInt(localStorage.getItem('total')||'0')+1;
+localStorage.setItem('total',t);document.getElementById('tot').textContent=t;
+let u=JSON.parse(localStorage.getItem('users')||'[]');
+if(!u.includes(navigator.userAgent)){u.push(navigator.userAgent);localStorage.setItem('users',JSON.stringify(u))}
+document.getElementById('usr').textContent=u.length}
+
+function la(){
+const l=JSON.parse(localStorage.getItem('logs')||'[]');
+const t=document.getElementById('lg');
+t.innerHTML=l.length?l.slice().reverse().map((x,i)=>`<tr><td>${i+1}</td><td>${x.q}</td><td>${x.t}</td></tr>`).join(''):'<tr><td colspan="3" style="text-align:center;padding:12px">No logs</td></tr>';
+lp()}
+
+function clrL(){if(confirm("Clear?")){localStorage.removeItem('logs');localStorage.removeItem('total');localStorage.removeItem('users');la();document.getElementById('tot').textContent='0';document.getElementById('usr').textContent='0'}}
+
+function card(r,i){
+const n=r.name||r.full_name||'N/A',p=r.mobile||r.phone||'N/A',c=r.cnic||'N/A',a=r.address||'N/A',nw=r.network||'N/A';
+const wa=`📊 Result\n👤 ${n}\n📞 ${p}\n🆔 ${c}\n📍 ${a}\n📶 ${nw}`;
+const d=`Name: ${n} | Phone: ${p} | CNIC: ${c} | Address: ${a} | Network: ${nw}`;
+const id=`c-${i}`;
+const u=gu();const isPro=gp(u);
+return `<div class="card" id="${id}">
+<strong>📊 Result #${i+1} ${isPro?'👑':''}</strong>
+<small><span class="lbl">👤</span> ${n}</small>
+<small><span class="lbl">📞</span> ${p}</small>
+<small><span class="lbl">🆔</span> ${c}</small>
+<small><span class="lbl">📍</span> ${a}</small>
+<small><span class="lbl">📶</span> ${nw}</small>
+<div class="act">
+<button class="btn" onclick="cp('${d.replace(/'/g,"\\'")}')">📋 Copy</button>
+<button class="btn" onclick="sh('${d.replace(/'/g,"\\'")}')">📤 Share</button>
+<a class="btn wa" href="https://wa.me/?text=${encodeURIComponent(wa)}" target="_blank">📱 WA</a>
+${isPro?`<button class="btn map" onclick="om('${a.replace(/'/g,"\\'")}')">🗺️ Map</button><button class="btn img" onclick="im('${id}')">📸 Img</button>`:`<button class="btn locked" onclick="showUp()">🔒 Map</button><button class="btn locked" onclick="showUp()">🔒 Img</button>`}
+</div></div>`}
+
+function showUp(){document.getElementById('um').classList.add('on')}
+
+function om(a){if(!a||a==='N/A'){alert("No address");return}document.getElementById('mf').src=`https://maps.google.com/maps?q=${encodeURIComponent(a)}&output=embed`;document.getElementById('mm').classList.add('on')}
+function cm(){document.getElementById('mm').classList.remove('on');document.getElementById('mf').src=''}
+
+function im(id){
+const el=document.getElementById(id);const acts=el.querySelector('.act');acts.style.display='none';
+html2canvas(el,{backgroundColor:'#0d1424',scale:2,useCORS:true}).then(c=>{acts.style.display='flex';
+c.toBlob(b=>{const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=`result-${Date.now()}.png`;a.click();URL.revokeObjectURL(u);toast('📸 Downloaded!')})}).catch(e=>{acts.style.display='flex';alert(e.message)})}
+
+async function search(){
+if(!chk())return;
+const q=document.getElementById('q').value.trim();const res=document.getElementById('res');
+if(!q){res.innerHTML='<div class="card">⚠️ Enter phone or CNIC</div>';return}
+sl(q);res.innerHTML='<div class="card">⏳ Searching...</div>';
+let err="All APIs failed";
+for(const api of APIS){
+try{const r=await fetch(`${api}?search=${encodeURIComponent(q)}`);const raw=(await r.text()).trim();
+let d;try{d=JSON.parse(raw)}catch{const m=raw.match(/\{[\s\S]*\}/);if(m)d=JSON.parse(m[0]);else throw new Error("Bad JSON")}
+if(d.success&&d.records&&d.records.length>0){res.innerHTML=d.records.slice(0,8).map((x,i)=>card(x,i)).join('');return}
+else err=d.error||"No records"}catch(e){err=e.message}}
+res.innerHTML=`<div class="card">⚠️ ${err}</div>`}
+
+function cp(t){navigator.clipboard.writeText(t).then(()=>toast('✅ Copied!'))}
+function sh(t){if(navigator.share)navigator.share({title:'Result',text:t}).catch(()=>{});else cp(t)}
+function toast(m){const s=document.createElement('div');s.className='toast';s.textContent=m;document.body.appendChild(s);setTimeout(()=>s.remove(),2000)}
+
+document.getElementById('q').addEventListener('keypress',e=>{if(e.key==='Enter')search()});
+document.getElementById('loginInput').addEventListener('keypress',e=>{if(e.key==='Enter')doLogin()});
+
+window.onload=()=>{
+const s=localStorage.getItem('mu');
+if(s){ba.src=s;ba.volume=.3;ba.play().catch(()=>{})}
+ub();
+document.getElementById('tot').textContent=localStorage.getItem('total')||'0';
+document.getElementById('usr').textContent=(JSON.parse(localStorage.getItem('users')||'[]')).length;
+if(gu())unlockSearch();else lockSearch()};
+
+document.addEventListener('click',function o(){if(ba.src&&ba.paused)ba.play().catch(()=>{});document.removeEventListener('click',o)},{once:true});
+</script>
+</body>
+</html
